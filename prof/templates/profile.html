@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{request.user.username}}
+{% endblock title %}
+
+{% block main %}
+    <div class="row">
+<div class="col-sm">
+</div>
+<div style="width: 800px; margin: 0 auto; text-align: center;">
+        <h3 style="float:left;">Welcome </h3>
+        <h3 style="float:left; margin-left: 10px; color: tomato; font-family:Georgia, 'Times New Roman', Times, serif">{{request.user.first_name}} {{request.user.last_name}}</h3>
+</div>
+    </div>
+    <form style="width: 800px; margin: 0 auto; text-align: center;" action="{% url 'logout' %}" method="GET">
+        <button type="submit" class="btn btn-danger" >logout {{request.user.username}}</button>
+    </form>
+
+{% endblock main %}

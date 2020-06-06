@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+      Settings {{request.user.username}}
+{% endblock %}
+
+{% block main %}
+    <div class="row">
+<div class="col-sm-4">
+</div>
+<div class="col-sm-4">
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+    <div style="color: red;">
+        {% if error_msg %}
+            {{ error_msg|escape }}
+        {% endif %}
+    </div>
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save</button></form>
+    <br>
+    <form action="{% url 'change_username' %}" method="GET">
+            <button type="submit" class="btn btn-warning" style="margin-bottom: 5px" >Change Username</button>
+    </form>
+    <form action="{% url 'change_password' %}" method="GET">
+        <button type="submit" class="btn btn-danger" >Change Password</button>
+    </form>
+</div>
+    </div>
+{% endblock main %}

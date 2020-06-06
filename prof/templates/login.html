@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <div style="color: red; width: 800px; text-align: center; margin: 0 auto 10px;">
+          {% if error_msg %}
+          {{ error_msg }}
+      {% endif %}
+    </div>
+<div class="row">
+<div class="col-sm-4">
+</div>
+<div class="col-sm-4">
+<form class="signin" action="{% url 'login' %}" method="post" role="form">
+  {% csrf_token %}
+  <div class="form-group">
+    <label>Email or Username</label>
+    <input type="text" class="form-control" name="email" placeholder="Enter email or Username" required>
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<br>
+    <form action="{% url 'password_reset' %}" method="GET">
+        <button type="submit" class="save btn btn-info" >Reset Password</button>
+    </form>
+</div>
+</div>
+{% endblock main %}
