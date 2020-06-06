@@ -1,14 +1,16 @@
 # prof
-###### Full User Registration System (signup, login, logout, change username, change password, reset password)
+###### Full Django User Registration System (signup, login, logout, change username, change password, reset password)
 
 [![prof](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![version](https://img.shields.io/badge/version-1.0.0-green.svg)]()
 [![status](https://img.shields.io/badge/status-stable-brightgreen.svg)]()
 [![python](https://img.shields.io/badge/python-3-blue.svg)](http://www.python.org/download/)
+[![django](https://img.shields.io/badge/django-3-blue.svg)](https://pypi.org/project/Django/)
 [![windows](https://img.shields.io/badge/windows-tested-brightgreen.svg)]()
 
 ## REQUIREMENTS
 - Python-3 --> http://www.python.org/download/
+- Django-3 --> https://pypi.org/project/Django/
 - six --> https://pypi.org/project/six/
 - django-crispy-forms --> https://pypi.org/project/django-crispy-forms/
 
