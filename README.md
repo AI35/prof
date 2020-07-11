@@ -27,8 +27,7 @@
 	$ git clone https://github.com/AI35/prof
 	```
 
-## Usage
-### When start new django project you need to edit:
+## Configuration
 
 #### Settings.py:
 - INSTALLED_APPS :
