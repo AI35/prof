@@ -80,7 +80,7 @@ EMAIL_PORT = 587
 ```
 #### Project urls.py:
 ```
-from django.urls import path, **include**
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
