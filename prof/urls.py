@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import base, profile, signin, signup, Logout, settings, change_password, activate, PassResetComplete, change_username, PassReset, PassResetDone, PassResetConfirm
+from .views import base, userslist, profile, signin, signup, Logout, settings, change_password, activate, PassResetComplete, change_username, PassReset, PassResetDone, PassResetConfirm
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
@@ -19,4 +19,5 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/',
         PassResetConfirm.as_view(), name='password_reset_confirm'), # reset/ -> change (reset/done/) when change this url
     path('reset/done/', PassResetComplete.as_view(), name='password_reset_complete'),  # reset/done/ -> when change (reset/) make this url same and add (done/)
+    path('userslist/', userslist, name='userslist'),
 ]

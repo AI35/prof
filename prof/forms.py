@@ -79,6 +79,16 @@ class SignupForm(UserCreationForm):
                 }
             ))
 
+    def clean_first_name(self):
+        data = self.cleaned_data['first_name']
+        data = data.capitalize()
+        return data
+
+    def clean_last_name(self):
+        data = self.cleaned_data['last_name']
+        data = data.capitalize()
+        return data
+
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')

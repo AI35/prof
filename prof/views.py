@@ -211,7 +211,14 @@ def activate(request, uidb64, token):
         #return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
-    
+
+
+def userslist(request):
+    context = {
+        "users" : User.objects.all()
+    }
+    return render(request, 'UsersList.html', context)
+
 #########    Password Reset Classes   ##########
 class PassReset(PasswordResetView):
     form_class = ResetPasswordform

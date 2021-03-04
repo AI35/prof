@@ -15,6 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="{% static "prof/js/bootstrap.min.js" %}" ></script>
 
+  {% block nav %}
 <!--                         Navbar                                       -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="{% url 'base' %}" style="font-size: 25px; color: red">prof</a>
@@ -35,6 +36,9 @@
       <li class="nav-item">
         <a class="nav-item nav-link" href="#">Friends</a>
       </li>
+      <li class="nav-item">
+            <a class="nav-item nav-link" href="{% url 'userslist' %}">Users List</a>
+          </li>
     </ul>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -63,6 +67,7 @@
   </div>
 </nav>
 <!--                      END Navbar                                       -->
+  {% endblock nav %}
 
 {% block main %}
 {% if request.user.is_authenticated %}
