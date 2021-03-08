@@ -5,7 +5,6 @@
 [![status](https://img.shields.io/badge/status-stable-brightgreen.svg)]()
 [![python](https://img.shields.io/badge/python-3-blue.svg)](http://www.python.org/download/)
 [![django](https://img.shields.io/badge/django-3-blue.svg)](https://pypi.org/project/Django/)
-[![windows](https://img.shields.io/badge/windows-tested-brightgreen.svg)]()
 
 ## REQUIREMENTS
 - Python-3 --> http://www.python.org/download/
