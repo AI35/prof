@@ -29,6 +29,7 @@
 	
 	```
 	$ git clone https://github.com/AI35/prof
+	$ pip install -r requirements.txt
 	```
 
 ## Configuration
