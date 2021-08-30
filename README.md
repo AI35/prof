@@ -2,6 +2,7 @@
 ###### Full Django User Registration System (signup, login, logout, change username, change password, reset password)
 
 [![prof](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
+[![version](https://img.shields.io/badge/version-2.0-green.svg)]()
 [![status](https://img.shields.io/badge/status-stable-brightgreen.svg)]()
 [![python](https://img.shields.io/badge/python-3-blue.svg)](http://www.python.org/download/)
 [![django](https://img.shields.io/badge/django-3-blue.svg)](https://pypi.org/project/Django/)
@@ -17,6 +18,11 @@
 - Very simple and easy to use.
 - Created for educational purposes.
 
+## V2 What's New:
+- Add api.
+- User List (You can view other user's information).
+- Add more profile informations like Avatar.
+
 ## Installation
 
 - Clone this repo:
@@ -27,7 +33,7 @@
 
 ## Configuration
 
-#### Settings.py:
+#### settings.py:
 - INSTALLED_APPS :
 ```
 INSTALLED_APPS = [
@@ -40,6 +46,8 @@ INSTALLED_APPS = [
     'prof',
     'crispy_forms',
     'six',
+    'rest_framework',
+    'profile_api',
 ]
 ```
 - TEMPLATES :
@@ -67,6 +75,18 @@ TEMPLATES = [
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
 LOGIN_URL = '/login/'
 ```
+- Add Media settings :
+```
+MEDIA_URL = '/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'prof/media')
+```
+- Add Rest Framework settings :
+```
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+```
 - Add EMAIL settings:
 	- if you want use gmail account don't forget enable low secure app in your google account settings.
 ```
@@ -76,15 +96,33 @@ EMAIL_HOST_USER = 'example@gmail.com'
 EMAIL_HOST_PASSWORD = '*****'
 EMAIL_PORT = 587
 ```
-#### Project urls.py:
+#### urls.py:
+- Project urls.py, not app urls :
 ```
 from django.urls import path, include
+from rest_framework import routers
+from profile_api import views
+
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('prof.urls')),
+    path('api/', include(router.urls)),
+    path('api/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 
 ```
+
+## Run project:
+- First you need to create Database:
+```
+$ python manage.py makemigrations
+$ python manage.py makemigrations prof
+$ python manage.py migrate
+```
+- Open 127.0.0.1:8000 in Browser
+- To use api go to 127.0.0.1:8000/api
 
 ###### ALI .B .OTH
