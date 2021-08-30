@@ -25,7 +25,7 @@
 
 ## Installation
 
-- Clone this repo:
+- Clone this repo and install requirements:
 	
 	```
 	$ git clone https://github.com/AI35/prof
