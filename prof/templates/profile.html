@@ -1,70 +1,89 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     {{request.user.username}}
 {% endblock title %}
-  {% block nav %}
-<!--                         Navbar                                       -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{% url 'base' %}" style="font-size: 25px; color: red">prof</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="font-family: 'Times New Roman', Times, serif; font-size: 20px">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-item nav-link" href="{% url 'base' %}">Home <span class="sr-only">(current)</span></a>
-      </li>
 
-      {% if request.user.is_authenticated %}
-
-      <li class="nav-item">
-        <a class="nav-item nav-link" href="#">Messages</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-item nav-link" href="#">Friends</a>
-      </li>
-      <li class="nav-item">
-            <a class="nav-item nav-link" href="{% url 'userslist' %}">Users List</a>
-          </li>
-    </ul>
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <a class="nav-item nav-link active" href="{% url 'profile' %}">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-item nav-link" href="{% url 'settings' %}">Settings</a>
-          </li>
-      <li class="nav-item">
-        <a id='logout' class="nav-item nav-link w-100" href="{% url 'logout' %}" tabindex="-1" aria-disabled="true">logout</a>
-      </li>
-    </ul>
-
-      {% else %}
-
-    </ul>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-item nav-link" href="{% url 'login' %}">login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-item nav-link" href="{% url 'signup' %}">signup</a>
-      </li>
-      {% endif %}
-    </ul>
-  </div>
-</nav>
-<!--                      END Navbar                                       -->
-  {% endblock nav %}
 
 {% block main %}
-    <div class="row">
-<div class="col-sm">
-</div>
-<div style="width: 800px; margin: 0 auto; text-align: center;">
-        <h3 style="float:left;">Welcome </h3>
-        <h3 style="float:left; margin-left: 10px; color: tomato; font-family:Georgia, 'Times New Roman', Times, serif">{{request.user.first_name}} {{request.user.last_name}}</h3>
-</div>
-    </div>
+ <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="dropdown nav-item">
+                      <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                          <i class="material-icons">apps</i> Components
+                      </a>
+                      <div class="dropdown-menu dropdown-with-icons">
+                        <a href="../index.html" class="dropdown-item">
+                            <i class="material-icons">layers</i> All Components
+                        </a>
+
+                        <a href="http://demos.creative-tim.com/material-kit/docs/2.0/getting-started/introduction.html" class="dropdown-item">
+                            <i class="material-icons">content_paste</i> Documentation
+                        </a>
+                      </div>
+                    </li>
+      				<li class="nav-item">
+      					<a class="nav-link" href="javascript:void(0)">
+      						<i class="material-icons">cloud_download</i> Download
+      					</a>
+      				</li>
+      				<li class="nav-item">
+      					<a class="nav-link" href="https://twitter.com/CreativeTim" target="_blank">
+      						<i class="fa fa-twitter"></i>
+      					</a>
+      				</li>
+      				<li class="nav-item">
+      					<a class="nav-link" href="https://www.facebook.com/CreativeTim" target="_blank">
+      						<i class="fa fa-facebook-square"></i>
+      					</a>
+      				</li>
+      				<li class="nav-item">
+      					<a class="nav-link"  href="https://www.instagram.com/CreativeTimOfficial" target="_blank">
+      						<i class="fa fa-instagram"></i>
+      					</a>
+      				</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-header header-filter" data-parallax="true" style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');"></div>
+    <div class="main main-raised">
+		<div class="profile-content">
+            <div class="container">
+                <div class="row">
+	                <div class="col-md-6 ml-auto mr-auto">
+        	           <div class="profile">
+	                        <div class="avatar">
+                          {% if i|length > 7 %}
+	                            <img src="{{ i }}" alt="avatar" class="img-raised rounded-circle img-fluid">
+	                        {% else %}
+                              <img src="{% static 'prof/image/default_pic.jpg' alt="avatar" class="img-raised rounded-circle img-fluid" %}"
+                          {% endif %}
+                          </div>
+	                        <div class="name">
+	                            <h3 class="title">{{ u.first_name }} {{ u.last_name }}</h3>                              
+								<h6>{{ p.bio }}</h6>
+                                <br>
+                                <h5>Email : {{ u.email }}</h5>
+								<a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>
+                                <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#pablo" class="btn btn-just-icon btn-link btn-pinterest"><i class="fa fa-pinterest"></i></a>
+	                        </div>
+	                    </div>
+    	            </div>
+                </div>
+                <!--
+                <div class="description text-center">
+                    <p>An artist of considerable range, Chet Faker — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. </p>
+                </div>
+                -->
+
+
+
+            </div>
+        </div>
+	</div>
 
 {% endblock main %}

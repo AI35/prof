@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect
@@ -13,24 +12,41 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetCompleteView, PasswordResetConfirmView
 from django.urls import reverse
 
+from .models import Profile
+from django.conf import settings as MSET
+
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect
 
-from prof.forms import Settingform, SignupForm, ChangeUsernameform, ChangePasswordform, ResetPasswordform, SetPasswordConfirm
+from prof.forms import Settingform, Settingform1, SignupForm, ChangeUsernameform, ChangePasswordform, ResetPasswordform, SetPasswordConfirm
 from prof.tokens import account_activation_token
 
 
 def base(request):
     return render(request, 'base.html', {})
 
+@login_required
+def profile(request):
+    context = {
+        "u": User.objects.get(username=request.user.username),
+        "p": Profile.objects.get(user=User.objects.get(username=request.user.username)),
+        "i": MSET.MEDIA_URL+Profile.objects.get(user=User.objects.get(username=request.user.username)).avatar.name
+    }
+    return render(request, 'profile.html', context)
 
 @login_required
-def profile(request, username=''):
-    # Need Edit
+def uprofile(request, username):
+    context = {
+        "u": User.objects.get(username=username),
+        "p": Profile.objects.get(user=User.objects.get(username=username)),
+        "i": MSET.MEDIA_URL+Profile.objects.get(user=User.objects.get(username=request.user.username)).avatar.name
+    
+    }
     if username == '' and request.user.is_authenticated:
-        return render(request, 'profile.html',{'u':request.user.username})
+        return render(request, 'profile.html', {'u':request.user.username})
     else:
-        return render(request, 'profile.html',{'u':username})
+        return render(request, 'profile.html', context)
+
 
 
 ###### signin  #######
@@ -93,25 +109,33 @@ def Logout(request):
 def settings(request):
     if request.POST:
         form = Settingform(request.POST)
+        formProfile = Settingform1(request.POST, request.FILES or None)
         #form.fields['usernaem'].value = request.user.username
         #print(request.user.username)
         #print(form.data['username'])
         #print(form.is_valid())
         #if request.user.username == form.data['username']:
-        if form.is_valid():
+        if form.is_valid() and formProfile.is_valid():
                 f = User.objects.get(username=request.user.username)
+                p = Profile.objects.get(user=f)
                 form = Settingform(request.POST, instance=f)
+                formProfile = Settingform1(request.POST, request.FILES or None, instance=p)
                 form.save()  # cleaned indenting, but would not save unless I added at least 6 characters.
+                formProfile.save()
                 return redirect('/profile/')
         else:
             i = form.errors
             f = User.objects.get(username=request.user.username)
+            p = Profile.objects.get(user=f)
             form = Settingform(instance=f)
-            return render(request, 'settings.html', {'form': form, 'error_msg': i})
+            formProfile = Settingform1(instance=p)
+            return render(request, 'settings.html', {'form': form, 'formProfile': formProfile, 'error_msg': i})
     else:
         f = User.objects.get(username=request.user.username)
+        p = Profile.objects.get(user=f)
         form = Settingform(instance=f)
-        return render(request, 'settings.html', {'form': form})
+        formProfile = Settingform1(instance=p)
+        return render(request, 'settings.html', {'form': form, 'formProfile': formProfile})
 
 
 @login_required
@@ -173,9 +197,10 @@ def signup(request):
                 form.add_error('email', 'Email already exists.')
                 return render(request, 'signup.html', {'form': form, 'error_msg':form.errors})
             user = form.save(commit=False)
-
             user.is_active = False
             user.save()
+            p=Profile(user=user)
+            p.save()
             current_site = get_current_site(request)
             message = render_to_string('acc_active_email.html', {
                 'user':user, 'domain':current_site.domain,
@@ -212,7 +237,7 @@ def activate(request, uidb64, token):
     else:
         return HttpResponse('Activation link is invalid!')
 
-
+@login_required
 def userslist(request):
     context = {
         "users" : User.objects.all()

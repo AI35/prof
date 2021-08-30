@@ -4,66 +4,14 @@
       Settings {{request.user.username}}
 {% endblock %}
 
-  {% block nav %}
-<!--                         Navbar                                       -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{% url 'base' %}" style="font-size: 25px; color: red">prof</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="font-family: 'Times New Roman', Times, serif; font-size: 20px">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-item nav-link" href="{% url 'base' %}">Home <span class="sr-only">(current)</span></a>
-      </li>
-
-      {% if request.user.is_authenticated %}
-
-      <li class="nav-item">
-        <a class="nav-item nav-link" href="#">Messages</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-item nav-link" href="#">Friends</a>
-      </li>
-      <li class="nav-item">
-            <a class="nav-item nav-link" href="{% url 'userslist' %}">Users List</a>
-          </li>
-    </ul>
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-item nav-link active" href="{% url 'settings' %}">Settings</a>
-          </li>
-      <li class="nav-item">
-        <a id='logout' class="nav-item nav-link w-100" href="{% url 'logout' %}" tabindex="-1" aria-disabled="true">logout</a>
-      </li>
-    </ul>
-
-      {% else %}
-
-    </ul>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-item nav-link" href="{% url 'login' %}">login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-item nav-link" href="{% url 'signup' %}">signup</a>
-      </li>
-      {% endif %}
-    </ul>
-  </div>
-</nav>
-<!--                      END Navbar                                       -->
-  {% endblock nav %}
+ 
 
 {% block main %}
     <div class="row">
 <div class="col-sm-4">
 </div>
 <div class="col-sm-4">
-    <form method="POST" class="post-form">
+    <form method="POST" class="post-form" enctype='multipart/form-data'>
         {% csrf_token %}
     <div style="color: red;">
         {% if error_msg %}
@@ -71,7 +19,9 @@
         {% endif %}
     </div>
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Save</button></form>
+        {{ formProfile.as_p }}
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
     <br>
     <form action="{% url 'change_username' %}" method="GET">
             <button type="submit" class="btn btn-warning" style="margin-bottom: 5px" >Change Username</button>

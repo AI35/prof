@@ -16,6 +16,7 @@
 <script src="{% static "prof/js/bootstrap.min.js" %}" ></script>
 
   {% block nav %}
+ 
 <!--                         Navbar                                       -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="{% url 'base' %}" style="font-size: 25px; color: red">prof</a>
@@ -30,12 +31,6 @@
       
       {% if request.user.is_authenticated %}
       
-      <li class="nav-item">
-        <a class="nav-item nav-link" href="#">Messages</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-item nav-link" href="#">Friends</a>
-      </li>
       <li class="nav-item">
             <a class="nav-item nav-link" href="{% url 'userslist' %}">Users List</a>
           </li>
