@@ -10,6 +10,7 @@
 ## REQUIREMENTS
 - Python-3 --> http://www.python.org/download/
 - Django-3 --> https://pypi.org/project/Django/
+- Django REST framework --> https://www.django-rest-framework.org/#installation
 - six --> https://pypi.org/project/six/
 - django-crispy-forms --> https://pypi.org/project/django-crispy-forms/
 
