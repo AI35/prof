@@ -13,6 +13,7 @@
 - Django REST framework --> https://www.django-rest-framework.org/#installation
 - six --> https://pypi.org/project/six/
 - django-crispy-forms --> https://pypi.org/project/django-crispy-forms/
+- Pillow --> https://pypi.org/project/Pillow/
 
 ## Notes
 - You can easily edit templates (or project).
