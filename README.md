@@ -21,9 +21,9 @@
 - Created for educational purposes.
 
 ## V2 What's New:
-- Add api.
-- User List (You can view other user's information).
-- Add more profile informations like Avatar.
+- Api Added.
+- User List (You can view other users information).
+- More profile informations has been added, such as an Avatar.
 
 ## Installation
 
