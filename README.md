@@ -21,9 +21,9 @@
 - Created for educational purposes.
 
 ## V2 What's New:
-- Api Added.
-- User List (You can view other users information).
-- More profile informations has been added, such as an Avatar.
+- Add api.
+- User List (You can view other user's information).
+- Add more profile informations like Avatar.
 
 ## Installation
 
@@ -91,13 +91,18 @@ REST_FRAMEWORK = {
 }
 ```
 - Add EMAIL settings:
-	- if you want use gmail account don't forget enable low secure app in your google account settings.
+	- if you want to use gmail account don't forget enable low secure app in your google account settings. (OUTDATED)
 ```
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'example@gmail.com'
 EMAIL_HOST_PASSWORD = '*****'
 EMAIL_PORT = 587
+```
+- Enable/Disable Email verification:
+    - if EMAIL_VERIFICATION = False a verification link will be displayed on the next page of registration.
+```
+EMAIL_VERIFICATION = True
 ```
 #### urls.py:
 - Project urls.py, not app urls :
@@ -108,6 +113,11 @@ from profile_api import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
+
+#Django 4 Fix force_text
+import django
+from django.utils.encoding import force_str
+django.utils.encoding.force_text = force_str
 
 urlpatterns = [
     path('admin/', admin.site.urls),
