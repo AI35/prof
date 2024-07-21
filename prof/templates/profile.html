@@ -66,9 +66,10 @@
 	                            <h3 class="title">{{ u.first_name }} {{ u.last_name }}</h3>                              
 								<h6>{{ p.bio }}</h6>
                                 <br>
-                                {% if l %}
-                                <h6 style="color: green">Last login: {{ l }}</h6>
-                                {% endif %}
+                                <table>
+                                    <tr><th>Last Seen: </th><td>{% if p.last_seen %}{{ p.last_seen|timesince }}{% else %}awhile{% endif %} ago</td></tr>
+                                    <tr><th>Online:</th><td>{{ p.online }}</td></tr>
+                                  </table>
                                 <h5>Email : {{ u.email }}</h5>
 								<a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>
                                 <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>

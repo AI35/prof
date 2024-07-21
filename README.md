@@ -2,7 +2,7 @@
 ###### Full Django User Registration System (signup, login, logout, change username, change password, reset password)
 
 [![prof](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![version](https://img.shields.io/badge/version-2.0.1-green.svg)]()
+[![version](https://img.shields.io/badge/version-2.0-green.svg)]()
 [![status](https://img.shields.io/badge/status-stable-brightgreen.svg)]()
 [![python](https://img.shields.io/badge/python-3-blue.svg)](http://www.python.org/download/)
 [![django](https://img.shields.io/badge/django-3-blue.svg)](https://pypi.org/project/Django/)
@@ -73,6 +73,19 @@ TEMPLATES = [
     },
 ]
 ```
+- MIDDLEWARE:
+```
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'prof.middleware.ActiveUserMiddleware',
+]
+```
 - Add LOGIN_URL and DATA_UPLOAD_MAX_NUMBER_FIELDS :
 ```
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
@@ -91,7 +104,7 @@ REST_FRAMEWORK = {
 }
 ```
 - Add EMAIL settings:
-	- if you want to use gmail account don't forget enable low secure app in your google account settings. (OUTDATED)
+	- if you want use gmail account don't forget enable low secure app in your google account settings. (OUTDATED)
 ```
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
@@ -103,6 +116,22 @@ EMAIL_PORT = 587
     - if EMAIL_VERIFICATION = False a verification link will be displayed on the next page of registration.
 ```
 EMAIL_VERIFICATION = True
+```
+- Add cache settings :
+```
+CACHES = {
+       'default': {
+           'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+           'LOCATION': '127.0.0.1:11211',              
+       }
+   }
+
+# Number of seconds of inactivity before a user is marked offline
+USER_ONLINE_TIMEOUT = 300
+
+# Number of seconds that we will keep track of inactive users for before 
+# their last seen is removed from the cache
+USER_LASTSEEN_TIMEOUT = 60 * 60 * 24 * 7
 ```
 #### urls.py:
 - Project urls.py, not app urls :
