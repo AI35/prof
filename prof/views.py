@@ -26,26 +26,21 @@ def base(request):
     return render(request, 'base.html', {})
 
 @login_required
-def profile(request):
-    context = {
-        "u": User.objects.get(username=request.user.username),
-        "p": Profile.objects.get(user=User.objects.get(username=request.user.username)),
-        "i": MSET.MEDIA_URL+Profile.objects.get(user=User.objects.get(username=request.user.username)).avatar.name
-    }
-    return render(request, 'profile.html', context)
-
-@login_required
-def uprofile(request, username):
+def profile(request, username=''):
+    if username == '':
+        username = request.user.username
+    if request.user.username == username:
+        l = 'Online Now'
+    else:
+        l = User.objects.get(username=username).last_login
     context = {
         "u": User.objects.get(username=username),
         "p": Profile.objects.get(user=User.objects.get(username=username)),
-        "i": MSET.MEDIA_URL+Profile.objects.get(user=User.objects.get(username=request.user.username)).avatar.name
+        "i": MSET.MEDIA_URL+Profile.objects.get(user=User.objects.get(username=request.user.username)).avatar.name,
+        "l": l
     
     }
-    if username == '' and request.user.is_authenticated:
-        return render(request, 'profile.html', {'u':request.user.username})
-    else:
-        return render(request, 'profile.html', context)
+    return render(request, 'profile.html', context)
 
 
 
@@ -67,8 +62,7 @@ def signin(request):
             re = authenticate(username=user.username, password=p)
             if re is not None:
                 login(request, re)
-                link = '/profile/'+str(re)
-                return HttpResponseRedirect(link)
+                return HttpResponseRedirect('/profile/')
             else:
                 return render(request, 'login.html', {'error_msg': 'Wrong Password or User not active'})
         except:
@@ -207,15 +201,19 @@ def signup(request):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)), #.decode()
                 'token': account_activation_token.make_token(user),
             })
-            # Sending activation link in terminal
-            # user.email_user(subject, message)
-            mail_subject = 'Activate your account.'
-            to_email = form.cleaned_data.get('email')
-            email = EmailMessage(mail_subject, message, to=[to_email])
-            email.send()
-            return render(request, 'confirm.html', {})
-            #return HttpResponse('Please confirm your email address to complete the registration.')
-            # return render(request, 'acc_active_sent.html')
+            email_verification = MSET.EMAIL_VERIFICATION
+            if email_verification == True:
+                # Sending activation link in terminal
+                # user.email_user(subject, message)
+                mail_subject = 'Activate your account.'
+                to_email = form.cleaned_data.get('email')
+                email = EmailMessage(mail_subject, message, to=[to_email])
+                email.send()
+                return render(request, 'confirm.html', {})
+                #return HttpResponse('Please confirm your email address to complete the registration.')
+                # return render(request, 'acc_active_sent.html')
+            else:
+                return render(request, 'confirm.html', {'message': message, 'email_verification': email_verification})
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})

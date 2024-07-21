@@ -2,7 +2,7 @@
 ###### Full Django User Registration System (signup, login, logout, change username, change password, reset password)
 
 [![prof](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![version](https://img.shields.io/badge/version-2.0-green.svg)]()
+[![version](https://img.shields.io/badge/version-2.0.1-green.svg)]()
 [![status](https://img.shields.io/badge/status-stable-brightgreen.svg)]()
 [![python](https://img.shields.io/badge/python-3-blue.svg)](http://www.python.org/download/)
 [![django](https://img.shields.io/badge/django-3-blue.svg)](https://pypi.org/project/Django/)

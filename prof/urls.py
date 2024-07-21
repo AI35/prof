@@ -1,12 +1,12 @@
 from django.urls import path
-from .views import uprofile, base, userslist, profile, signin, signup, Logout, change_password, activate, PassResetComplete, change_username, PassReset, PassResetDone, PassResetConfirm
+from .views import base, userslist, profile, signin, signup, Logout, change_password, activate, PassResetComplete, change_username, PassReset, PassResetDone, PassResetConfirm
 from .views import settings as SETTINGS
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
     path('', base, name='base'),
-    path('profile/<str:username>/', uprofile, name='profile'),
+    path('profile/<str:username>/', profile, name='profile'),
     path('profile/', profile, name='profile'),
     path('login/', signin, name='login'),
     path('logout/', Logout, name='logout'),
