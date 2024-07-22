@@ -10,7 +10,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
     avatar = models.ImageField(upload_to='profilepic', blank = True)
-    
+    online_now = models.BooleanField(default=True)
+
     """ slug = models.SlugField(default="", null=False)
 
     def save(self, *args, **kwargs):

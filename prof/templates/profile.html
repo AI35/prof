@@ -66,10 +66,17 @@
 	                            <h3 class="title">{{ u.first_name }} {{ u.last_name }}</h3>                              
 								<h6>{{ p.bio }}</h6>
                                 <br>
+                                {% if p.online_now %}
                                 <table>
                                     <tr><th>Last Seen: </th><td>{% if p.last_seen %}{{ p.last_seen|timesince }}{% else %}awhile{% endif %} ago</td></tr>
                                     <tr><th>Online:</th><td>{{ p.online }}</td></tr>
                                   </table>
+                                {% else %}
+                                <table>
+                                    <tr><th>Last Seen: </th><td>Hidden</td></tr>
+                                    <tr><th>Online:</th><td>Hidden</td></tr>
+                                  </table>
+                                {% endif %}
                                 <h5>Email : {{ u.email }}</h5>
 								<a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>
                                 <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
@@ -78,12 +85,6 @@
 	                    </div>
     	            </div>
                 </div>
-                <!--
-                <div class="description text-center">
-                    <p>An artist of considerable range, Chet Faker — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. </p>
-                </div>
-                -->
-
 
 
             </div>

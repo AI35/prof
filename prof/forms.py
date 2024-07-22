@@ -34,6 +34,7 @@ class Settingform(forms.ModelForm):
         fields = ('first_name', 'last_name')
 
 class Settingform1(forms.ModelForm):
+    online_now = forms.BooleanField(required=False)
     def __init__(self, *args, **kwargs):
         super(Settingform1, self).__init__(*args, **kwargs)
         self.fields['bio'].widget = forms.TextInput(
@@ -44,7 +45,7 @@ class Settingform1(forms.ModelForm):
     class Meta:
         model = Profile
         #fields = ('username', 'first_name', 'last_name',)
-        fields = ('bio', 'avatar')
+        fields = ('bio', 'avatar','online_now')
 
 ################################################################################
 
